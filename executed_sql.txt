@@ -1,0 +1,24 @@
+$ mysql -u root -p -h localhost -P 3307 --protocol=tcp
+をターミナルで実行することでホストOSからmysqlに接続し、sqlを実行
+
+
+USE go_line_bot;
+
+CREATE TABLE users (
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+line_user_id VARCHAR(255) NOT NULL,
+created_at datetime default current_timestamp
+)DEFAULT CHARACTER SET=utf8;
+
+
+CREATE TABLE admins (
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+line_messaging_id INT NOT NULL,
+line_messaging_secret VARCHAR(255) NOT NULL,
+line_messaging_token VARCHAR(255) NOT NULL,
+line_login_id INT NOT NULL,
+line_login_secret VARCHAR(255) NOT NULL,
+created_at datetime default current_timestamp
+)DEFAULT CHARACTER SET=utf8;
+
+INSERT INTO admins values (1, 1656383139, '3b636209f942b66dd8910510d8eb0406', 'yS8yY1Y4nvSOV36RQcHyca1V4wRzKjgitcGTX9/C0b4p0tkKspTxY363HnlawAq9EFk0+0RtilUCgIrPTALQx+blLFHoKK9LyN5u+03GoNOdzlBxazjzTBrdeC+pIZVGtIC4emg5hrIQVdHEMGgCnAdB04t89/1O/w1cDnyilFU=', 1656382872, 'ab954a407e9bcd398dd1132cd04c8fb1', NOW());

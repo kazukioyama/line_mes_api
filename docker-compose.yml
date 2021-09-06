@@ -1,0 +1,32 @@
+# NOTE: https://qiita.com/nikoniko/items/fb1d43c39a80c7ac31eb
+version: '3'
+services:
+  app:
+    # dbのコンテナとリンク付けする
+    # dbコンテナを起動してからappコンテナを起動してくれるようになる?
+    depends_on:
+      - db
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    container_name: app
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/go/src/go_line_bot
+    # docker-compose run実行時に実行される
+    command: go run main.go
+    # dockerのgolangイメージのデフォルトのGOPATHは「/go」
+  db:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - '3307:3306'
+    environment:
+      - 'DATABASE_USERNAME=root'
+      - 'DATABASE_PASSWORD=password'
+      - 'DATABASE_NAME=go_line_bot'
+    volumes:
+      - datadir:/var/lib/mysql
+volumes:
+  datadir:
